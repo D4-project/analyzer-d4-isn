@@ -5,11 +5,11 @@ DIR=$(realpath "$DIR")
 
 # check and install screen and redis-cli
 while
-	dpkg -l redis-tools screen 2> /dev/null > /dev/null
+	dpkg -l python3 python3-redis screen redis-tools 2> /dev/null > /dev/null
 	[ $? != 0 ]
 do
 	echo 'Installing dependencies'
-	sudo apt-get install screen redis-tools -y
+	sudo apt-get install python3 python3-redis screen redis-tools -y
 done
 
 
