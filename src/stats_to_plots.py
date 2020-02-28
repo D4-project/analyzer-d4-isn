@@ -44,7 +44,7 @@ def is_interesting(port):
 
 def get_interesting_ports():
 	ports = []
-	for p in stats.get_ports():
+	for p in range(65536):
 		if is_interesting(p):
 			ports.append(p)
 	return ports

@@ -55,8 +55,6 @@ class Stats_Database(Database):
 			LOCAL_REDIS_PORT,
 			LOCAL_STATS_DB
 		)
-		# TODO remove SET_PORTS? not useful for big datasets
-		self.SET_PORTS = 'TCP-ISN-IP_PORTS'
 		self.PORT_FORMAT = 'TCP-ISN-IP_{}_{}_{}'
 
 	def add_port_all(self, date, port):
@@ -67,13 +65,9 @@ class Stats_Database(Database):
 
 	def add_port(self, date, port, kind):
 		# TODO maybe add expire depending on wanted retention?
-		self.db.sadd(self.SET_PORTS, port)
 		day = date.strftime('%Y-%m-%d')
 		key = self.PORT_FORMAT.format(day, port, kind)
 		return self.db.incr(key)
-
-	def get_ports(self):
-		return self.db.smembers(self.SET_PORTS)
 
 	def get_port_all(self, date, port):
 		return self.get_port(date, port, 'ALL')
